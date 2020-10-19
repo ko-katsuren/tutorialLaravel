@@ -1,0 +1,29 @@
+.select-item-wrapper{
+    display: flex;
+}
+
+.select-left,.select-right{
+    width: 50%;
+    text-align: center;
+    padding: 100px 0;
+}
+
+.select-item{
+    opacity: 0.7;
+}
+
+.select-item:hover{
+    opacity: 1;
+}
+
+a{
+    display: inline-block;
+    font-size: 300px;
+    color: #6b848d;
+    opacity: 0.7;
+}
+
+p{
+    letter-spacing: 5px;
+    font-size: 20px;
+}

@@ -1,0 +1,17 @@
+.header-wrapper{
+    background-color: rgba(34, 49, 52, 0.9);
+}
+
+.title{
+    color: white;
+    float: left;
+}
+
+li{
+    text-align: center;
+    float: right;
+    line-height: 60px;
+    margin: 0 30px;
+    font-size: 20px;
+    color: white;
+}

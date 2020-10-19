@@ -1,0 +1,30 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+ul{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+.wrapper{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.header-wrapper{
+  background-color: rgba(34, 49, 52, 0.9);
+}
+
+.title{
+  color: white;
+}
