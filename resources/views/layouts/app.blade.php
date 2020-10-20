@@ -18,7 +18,6 @@
     <div class="container">
         @yield('container')
     </div>
-    <script>src="{{ asset('/js/model.js') }}"</script>
 </body>
 
 </html>

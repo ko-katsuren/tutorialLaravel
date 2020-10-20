@@ -6,27 +6,60 @@
     {{-- ヘッダー帯表示 --}}
     @include('layouts.header')
     <div class="user-list">
-        <h2>ユーザー情報</h2>
+        <h2 id="title">ユーザー情報</h2>
         <div class="header">
-            <button class="search">絞り込み</button>
+            <button class="search" onclick="search_modal_show()">絞り込み</button>
         </div>
         <table>
-            <th>ID</th>
-            <th>名前</th>
-            <th>所属</th>
-            <th></th>
+            <th class="user-list-id">ID</th>
+            <th class="user-list-name">名前</th>
+            <th class="user-list-belong">所属</th>
+            <th class="user-list-details"></th>
+            @isset($users)
+            @foreach ($users as $user)
             <tr>
-                <td class="user-list-id">1</td>
-                <td class="user-list-name">鈴木　太郎</td>
-                <td class="user-list-belong">営業部営業課</td>
-                <td class="user-list-details"><button class="details-button">詳細</button></td>
+                <td class="user-list-id">{{$user->id}}</td>
+                <td class="user-list-name">{{$user->name}}</td>
+                <td class="user-list-belong">{{$user->profile->belong}}</td>
+                <td class="user-list-details">
+                    <button class="details-button" id="details{{$loop->index}}" onclick="details_modal_show(this.id)">詳細</button>
+                </td>
             </tr>
+            <div class="details-modal mask hidden modal" id="details{{$loop->index}}-modal">
+                <div class="form-row">
+                    <label class="modal-label">ID</label>
+                    <label class="modal-value">{{$user->id}}</label>
+                </div>
+                <div class="form-row">
+                    <label class="modal-label">名前</label>
+                    <label class="modal-value">{{$user->name}}</label>
+                </div>
+                <div class="form-row">
+                    <label class="modal-label">所属</label>
+                    <label class="modal-value">{{$user->profile->belong}}</label>
+                </div>
+                <div class="form-row">
+                    <label class="modal-label">年齢</label>
+                    <label class="modal-value">{{$user->profile->age}}</label>
+                </div>
+                <div class="form-row">
+                    <label class="modal-label">住所</label>
+                    <label class="modal-value">{{$user->profile->address}}</label>
+                </div>
+                <div class="button-row">
+                    <button class="chancel" id="{{$loop->index}}-modal" onclick="details_modal_hidden(this.id)">閉じる</button>
+                    <button class="done">編集</button>
+                </div>
+            </div>
+            @endforeach
+            @endisset
         </table>
-        <button class="add">新規登録</button>
+        <button class="add" onclick="add_modal_show()">新規登録</button>
     </div>
-    <div class="mask hidden">
-        <div class="modal-search mask hidden">
-            <form action="">
+    <div class="mask hidden" id="mask">
+        <div class="search-modal mask hidden modal" id="search-modal">
+            <form action="{{route('userlist.index')}}" method="get">
+                @csrf
                 <div class="form-row">
                     <label class="modal-label">ID</label>
                     <input type="text" name="id">
@@ -40,42 +73,26 @@
                     <input type="text" name="belong">
                 </div>
                 <div class="button-row">
-                    <button class="chancel">閉じる</button>
+                    <button type="button" class="chancel" onclick="search_modal_hidden()">閉じる</button>
                     <button type="submit" class="done">絞り込み</button>
                 </div>
             </form>
         </div>
-        <div class="modal-details mask hidden">
-            <div class="form-row">
-                <label class="modal-label">ID</label>
-                <label class="modal-value">1</label>
-            </div>
-            <div class="form-row">
-                <label class="modal-label">名前</label>
-                <label class="modal-value">2</label>
-            </div>
-            <div class="form-row">
-                <label class="modal-label">所属</label>
-                <label class="modal-value">3</label>
-            </div>
-            <div class="form-row">
-                <label class="modal-label">年齢</label>
-                <label class="modal-value">4</label>
-            </div>
-            <div class="form-row">
-                <label class="modal-label">住所</label>
-                <label class="modal-value">5</label>
-            </div>
-            <div class="button-row">
-                <button class="chancel">閉じる</button>
-                <button class="done">絞り込み</button>
-            </div>
-        </div>
-        <div class="modal-add mask hidden">
-            <form action="">
+        
+        <div class="add-modal mask hidden modal" id="add-modal">
+            <form action="{{route('userlist.create')}}" method="get">
+                @csrf
+                <div class="form-row">
+                    <label class="modal-label">メール</label>
+                    <input type="text" name="email">
+                </div>
                 <div class="form-row">
                     <label class="modal-label">名前</label>
                     <input type="text" name="name">
+                </div>
+                <div class="form-row">
+                    <label class="modal-label">パスワード</label>
+                    <input type="text" name="password">
                 </div>
                 <div class="form-row">
                     <label class="modal-label">所属</label>
@@ -90,11 +107,13 @@
                     <input type="text" name="address">
                 </div>
                 <div class="button-row">
-                    <button class="chancel">閉じる</button>
-                    <button class="done">絞り込み</button>
+                    <button type="button" class="chancel" onclick="add_modal_hidden()">閉じる</button>
+                    <button type="submit" class="done">登録</button>
                 </div>
             </form>
         </div>
     </div>
 @endsection
+
+<script src=" {{asset('js/modal.js')}}"></script>
 

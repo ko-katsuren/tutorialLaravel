@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Matter;
 
 class MatterListController extends Controller
 {
@@ -11,10 +12,26 @@ class MatterListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return view('matterlist');
+        $query = Matter::query();
+
+        if (isset($request->id)) {
+            $query->where('id', 'like', "%$request->id%");
+        }
+
+        if (isset($request->name)) {
+            $query->where('matter_name', 'like', "%$request->name%");
+        }
+
+        if (isset($request->price)) {
+            $query->where('price', $request->price);
+        }
+
+        $matters = $query->get();
+
+        return view('matterlist', compact('matters'));
     }
 
     /**
@@ -22,9 +39,18 @@ class MatterListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $matters = Matter::create(
+            [
+                'matter_name' => $request->name,
+                'price' => $request->price
+            ]
+        );
+
+        $matters->save();
+        return redirect(route('matterlist.index'));
     }
 
     /**

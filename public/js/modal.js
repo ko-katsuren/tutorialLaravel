@@ -1,17 +1,37 @@
-const detals_button = getItem('details-button');
-const search_button = getItem('search');
-const search_button = getItem('add');
+function search_modal_show(){
+    modal_show('search-modal');
+}
 
-const mask = getItem('mask')[0];
-const modal_search = getItem('model-search')[0];
-const modal_details = getItem('model-details')[0];
-const modal_add = getItem('model-add')[0];
+function search_modal_hidden(){
+    modal_hidden('search-modal');
+}
 
-modal_search.addEventListener('click', ()=>{
-    modal_search.classList.remove('hidden');
+function details_modal_show(id){
+    modal_show(id + '-modal');
+}
+
+function details_modal_hidden(id){
+    modal_hidden('details' + id);
+}
+
+function add_modal_show(){
+    modal_show('add-modal');
+}
+
+function add_modal_hidden(){
+    modal_hidden('add-modal');
+}
+
+function modal_show(id){
+    const mask = document.getElementById('mask');
+    const target = document.getElementById(id);
     mask.classList.remove('hidden');
-})
+    target.classList.remove('hidden');
+}
 
-const getItem = name => {
-    return document.getElementsByClassName(name);
+function modal_hidden(id){
+    const mask = document.getElementById('mask');
+    const target = document.getElementById(id);
+    mask.classList.add('hidden');
+    target.classList.add('hidden');
 }
