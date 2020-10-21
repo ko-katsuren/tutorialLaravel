@@ -11,6 +11,10 @@ use SebastianBergmann\Environment\Console;
 
 class UserListController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -116,7 +120,7 @@ class UserListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($re)
     {
         //
     }
@@ -125,12 +129,23 @@ class UserListController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //
+        $user = User::find($request->id);
+        $profile = $user->profile;
+
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $profile->belong = $request->belong;
+        $profile->age = $request->age;
+        $profile->address = $request->address;
+
+        $user->save();
+        $profile->save();
+        return redirect(route('userlist.index'));
     }
 
     /**

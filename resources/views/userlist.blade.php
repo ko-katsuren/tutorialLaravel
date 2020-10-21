@@ -35,6 +35,10 @@
                     <label class="modal-value">{{$user->name}}</label>
                 </div>
                 <div class="form-row">
+                    <label class="modal-label">メール</label>
+                    <label class="modal-value">{{$user->email}}</label>
+                </div>
+                <div class="form-row">
                     <label class="modal-label">所属</label>
                     <label class="modal-value">{{$user->profile->belong}}</label>
                 </div>
@@ -48,9 +52,42 @@
                 </div>
                 <div class="button-row">
                     <button class="chancel" id="{{$loop->index}}-modal" onclick="details_modal_hidden(this.id)">閉じる</button>
-                    <button class="done">編集</button>
+                    <button class="done" id="details{{$loop->index}}-edit" onclick="details_edit_modal_show(this.id)">編集</button>
                 </div>
             </div>
+
+            <div class="details-edit-modal mask hidden modal" id="details{{$loop->index}}-edit-modal">
+                <form action="{{route('userlist.update', $user->id)}}" method="post">
+                    @csrf
+                    @method('PUT')
+                    <input type="text" name="id" style="display: none" value="{{$user->id}}">
+                    <div class="form-row">
+                        <label class="modal-label">メール</label>
+                    <input type="text" name="email" value="{{$user->email}}">
+                    </div>
+                    <div class="form-row">
+                        <label class="modal-label">名前</label>
+                        <input type="text" name="name" value="{{$user->name}}">
+                    </div>
+                    <div class="form-row">
+                        <label class="modal-label">所属</label>
+                        <input type="text" name="belong" value="{{$user->profile->belong}}">
+                    </div>
+                    <div class="form-row">
+                        <label class="modal-label">年齢</label>
+                        <input type="number" name="age" maxlength="3" value="{{$user->profile->age}}">
+                    </div>
+                    <div class="form-row">
+                        <label class="modal-label">住所</label>
+                        <input type="text" name="address" value="{{$user->profile->address}}">
+                    </div>
+                    <div class="button-row">
+                        <button type="button" class="chancel" id="{{$loop->index}}-edit-modal" onclick="details_modal_hidden(this.id)">閉じる</button>
+                        <button type="submit" class="done">登録</button>
+                    </div>
+                </form>
+            </div>
+            
             @endforeach
             @endisset
         </table>

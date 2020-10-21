@@ -14,6 +14,12 @@ function details_modal_hidden(id){
     modal_hidden('details' + id);
 }
 
+function details_edit_modal_show(id){
+    const details_modal_id = id.replace('edit', 'modal');
+    modal_hidden(details_modal_id);
+    modal_show(id + '-modal');
+}
+
 function add_modal_show(){
     modal_show('add-modal');
 }

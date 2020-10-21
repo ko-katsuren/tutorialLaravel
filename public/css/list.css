@@ -104,7 +104,12 @@ table{
 
   .details-modal{
     width: 350px;
-    height: 300px;
+    height: 350px;
+  }
+
+  .details-edit-modal{
+    width: 350px;
+    height: 350px;
   }
 
   .add-modal{

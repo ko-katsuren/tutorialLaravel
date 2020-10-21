@@ -31,8 +31,12 @@ class UserController extends Controller
 
     public function getSignin(Request $request)
     {
-        $param = ['message' => 'ログインしてください。'];
-        return view('user.signin', $param);
+        if (Auth::check()) {
+            return view('select');
+        } else {
+            $param = ['message' => 'ログインしてください。'];
+            return view('user.signin', $param);
+        }
     }
 
     public function postSignin(Request $request)
@@ -45,5 +49,12 @@ class UserController extends Controller
         }
 
         return view('user.signin', ['message' => $msg]);
+    }
+
+    public function getSignout()
+    {
+        Auth::logout();
+        $param = ['message' => 'ログインしてください。'];
+        return view('user.signin', $param);
     }
 }

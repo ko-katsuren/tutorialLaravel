@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 $controllerPath = "app\Http\Controllers\\";
 // ログイン
 Route::get('/', 'UserController@getSignin');
+Route::get('/signout', 'UserController@getSignout')->name('signout');
 Route::post('/', 'UserController@postSignin')->name('signin');
 
 // サインイン
@@ -24,10 +25,13 @@ Route::post('/', 'UserController@postSignin')->name('signin');
 // Route::post('/signup', 'UserController@postSignUp')->name('signup');
 
 // 選択
-Route::get('/select', 'ShowSelect');
+Route::get('/select', 'ShowSelect')->name('select');
 
 // ユーザー情報
 Route::resource('/userlist', 'UserListController');
+// onlyを使う方法
+// Route::resource('/userlist', 'UserListController', ['only' => ['index', 'create', 'edit', 'store', 'destroy']]);
+
 
 // 案件情報
 Route::resource('/matterlist', 'MatterListController');

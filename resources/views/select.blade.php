@@ -8,13 +8,13 @@
 <div class="select-item-wrapper">
     <div class="select-left">
         <div class="select-item">
-            <a href="{{route('userlist.index')}}" class="fa fa-user"></a>
+            <a href="{{route('userlist.index')}}" class="fa fa-user icon"></a>
             <p>ユーザー情報</p>
         </div>
     </div>
     <div class="select-right">
         <div class="select-item">
-            <a href="{{route('matterlist.index')}}" class="fa fa-list"></a>
+            <a href="{{route('matterlist.index')}}" class="fa fa-list icon"></a>
             <p>案件情報</p>
         </div>
     </div>

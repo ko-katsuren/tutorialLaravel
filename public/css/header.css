@@ -15,3 +15,7 @@ li{
     font-size: 20px;
     color: white;
 }
+
+.header-wrapper a{
+    color: white;
+}
